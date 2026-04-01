@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ලියාපදිංචිය - විද්‍යා චින්තන</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .form-container { width: 100%; max-width: 400px; margin: 0; }
+        .dynamic-island, .footer, .back-to-top { display: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo" style="text-align:center; font-size:1.8rem; margin-bottom:30px;">විද්‍යා චින්තන</div>
+        <h2 style="text-align:center;">ලියාපදිංචි වන්න</h2>
+        <div class="form-group"><input type="text" id="regName" placeholder="ඔබගේ නම"></div>
+        <div class="form-group"><input type="email" id="regEmail" placeholder="ඊමේල් ලිපිනය"></div>
+        <div class="form-group"><input type="password" id="regPassword" placeholder="මුරපදය (අවම අකුරු 6)"></div>
+        <button class="btn-primary" id="doRegisterBtn" style="width:100%">ලියාපදිංචි වන්න</button>
+        <p style="text-align:center; margin-top:16px;">දැනටමත් ගිණුමක් තියෙනවාද? <a href="login.html" style="color:var(--accent-primary);">පිවිසෙන්න</a></p>
+        <div id="registerError" style="color:var(--accent-danger); text-align:center; margin-top:12px;"></div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script>
+        document.getElementById('doRegisterBtn').addEventListener('click', async () => {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            if (!name || !email || !password) {
+                document.getElementById('registerError').innerText = 'සියලු ක්ෂේත්‍ර පුරවන්න';
+                return;
+            }
+            if (password.length < 6) {
+                document.getElementById('registerError').innerText = 'මුරපදය අවම අකුරු 6ක් විය යුතුය';
+                return;
+            }
+            try {
+                const cred = await auth.createUserWithEmailAndPassword(email, password);
+                await cred.user.updateProfile({ displayName: name });
+                await db.collection('users').doc(cred.user.uid).set({
+                    name: name,
+                    email: email,
+                    role: 'user',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                window.location.href = 'index.html';
+            } catch (error) {
+                if (error.code === 'auth/email-already-in-use') {
+                    document.getElementById('registerError').innerText = 'මෙම ඊමේල් ලිපිනය දැනටමත් භාවිතා වේ';
+                } else {
+                    document.getElementById('registerError').innerText = 'දෝෂයක් ඇතිවිය. නැවත උත්සාහ කරන්න';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

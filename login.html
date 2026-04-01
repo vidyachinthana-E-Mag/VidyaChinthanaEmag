@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>පිවිසෙන්න - විද්‍යා චින්තන</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .form-container { width: 100%; max-width: 400px; margin: 0; }
+        .dynamic-island, .footer, .back-to-top { display: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="logo" style="text-align:center; font-size:1.8rem; margin-bottom:30px;">විද්‍යා චින්තන</div>
+        <h2 style="text-align:center;">පිවිසෙන්න</h2>
+        <div class="form-group"><input type="email" id="loginEmail" placeholder="ඊමේල් ලිපිනය"></div>
+        <div class="form-group"><input type="password" id="loginPassword" placeholder="මුරපදය"></div>
+        <button class="btn-primary" id="doLoginBtn" style="width:100%">පිවිසෙන්න</button>
+        <p style="text-align:center; margin-top:16px;">ගිණුමක් නැද්ද? <a href="register.html" style="color:var(--accent-primary);">ලියාපදිංචි වන්න</a></p>
+        <div id="loginError" style="color:var(--accent-danger); text-align:center; margin-top:12px;"></div>
+    </div>
+
+    <script src="js/firebase-config.js"></script>
+    <script>
+        document.getElementById('doLoginBtn').addEventListener('click', async () => {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            try {
+                await auth.signInWithEmailAndPassword(email, password);
+                window.location.href = 'index.html';
+            } catch (error) {
+                document.getElementById('loginError').innerText = 'වැරදි ඊමේල් හෝ මුරපදය';
+            }
+        });
+    </script>
+</body>
+</html>

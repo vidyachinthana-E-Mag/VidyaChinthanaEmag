@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>පරිපාලන පැනලය - විද්‍යා චින්තන</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dynamic-island { position: relative; top: 0; transform: none; margin-bottom: 20px; }
+        main { padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="dynamic-island" id="dynamicIsland">
+        <div class="island-content">
+            <div class="logo" id="logo">විද්‍යා චින්තන</div>
+            <div class="nav-links">
+                <a href="index.html">මුල් පිටුව</a>
+                <a href="admin.html" style="color:var(--accent-primary);">පරිපාලනය</a>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <img src="" class="user-avatar" id="userAvatar" style="display:none;">
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="admin-container">
+            <div class="admin-sidebar">
+                <a data-tab="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> ඩෑෂ්බෝඩ්</a>
+                <a data-tab="pending"><i class="fas fa-clock"></i> අනුමැතිය සඳහා</a>
+                <a data-tab="articles"><i class="fas fa-newspaper"></i> සියලු ලිපි</a>
+                <a data-tab="users"><i class="fas fa-users"></i> පරිශීලකයින්</a>
+                <a data-tab="comments"><i class="fas fa-comments"></i> අදහස්</a>
+                <a data-tab="ai"><i class="fas fa-robot"></i> AI කලාපය</a>
+            </div>
+            <div class="admin-content">
+                <div id="dashboardTab">
+                    <div class="stats-grid" id="adminStats"></div>
+                    <h3>මෑත ක්‍රියාකාරකම්</h3>
+                    <div id="recentActivity"></div>
+                </div>
+                <div id="pendingTab" style="display:none;"><h3>අනුමැතිය සඳහා ලිපි</h3><div id="pendingList"></div></div>
+                <div id="articlesTab" style="display:none;"><h3>සියලු ලිපි</h3><div id="allArticlesList"></div></div>
+                <div id="usersTab" style="display:none;"><h3>පරිශීලකයින්</h3><div id="usersList"></div></div>
+                <div id="commentsTab" style="display:none;"><h3>අදහස්</h3><div id="commentsListAdmin"></div></div>
+                <div id="aiTab" style="display:none;"><h3>🤖 AI කලාප නිර්මාණය</h3><p>මෙම සතියේ අනුමත කරන ලද ලිපි වලින් සතිපතා කලාපයක් සාදන්න.</p><button id="generateIssueBtn" class="btn-primary">✨ කලාපය නිර්මාණය කරන්න</button><div id="aiResult" style="margin-top:20px;"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer"><div class="container"><p>&copy; <span id="currentYear"></span> විද්‍යා චින්තන - සියලුම හිමිකම් ඇවිරිණි</p></div></footer>
+
+    <div id="replyModal" class="modal"><div class="modal-content"><h3>අදහසට පිළිතුරු දෙන්න</h3><textarea id="replyText" rows="4"></textarea><button id="submitReplyBtn" class="btn-primary">පිළිතුරු දෙන්න</button><button class="close-modal">වසන්න</button></div></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

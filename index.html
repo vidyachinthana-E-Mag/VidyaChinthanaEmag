@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>විද්‍යා චින්තන | විද්‍යා සඟරාව</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Dynamic Island Header -->
+    <div class="dynamic-island" id="dynamicIsland">
+        <div class="island-content">
+            <div class="logo" id="logo">විද්‍යා චින්තන</div>
+            <div class="nav-links">
+                <a href="index.html">මුල් පිටුව</a>
+                <a href="#" id="archiveLink">කලාප</a>
+                <a href="#" id="creatorsLink">නිර්මාණකරුවෝ</a>
+                <a id="submitNavBtn" style="display:none;" href="editor.html">ලිපි එකතු කරන්න</a>
+                <a id="adminNavBtn" style="display:none;" href="admin.html">පරිපාලනය</a>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div id="authSection">
+                    <button class="btn-outline" id="showLoginBtn">පිවිසෙන්න</button>
+                    <img src="" class="user-avatar" id="userAvatar" style="display:none;">
+                </div>
+                <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">මුල් පිටුව</a>
+        <a href="#" id="mobileArchiveLink">කලාප</a>
+        <a href="#" id="mobileCreatorsLink">නිර්මාණකරුවෝ</a>
+        <a id="mobileSubmitNav" style="display:none;" href="editor.html">ලිපි එකතු කරන්න</a>
+        <a id="mobileAdminNav" style="display:none;" href="admin.html">පරිපාලනය</a>
+        <hr>
+        <div id="mobileAuthText">පිවිසෙන්න</div>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="hero fade-up">
+                <h1>විද්‍යා චින්තන</h1>
+                <p>ශ්‍රී ලංකාවේ ප්‍රථම සම්පූර්ණ ඩිජිටල් විද්‍යා සඟරාව</p>
+            </div>
+
+            <div class="main-layout">
+                <div>
+                    <div class="section-header">
+                        <h2><i class="fas fa-newspaper"></i> නවතම ලිපි</h2>
+                        <button class="btn-outline" id="viewAllBtn">සියල්ල බලන්න →</button>
+                    </div>
+                    <div id="articlesGrid" class="articles-grid">
+                        <div class="loading">පූරණය වෙමින්...</div>
+                    </div>
+                </div>
+
+                <div class="sidebar">
+                    <div class="sidebar-widget">
+                        <h3><i class="fas fa-calendar-week"></i> සතිපතා කාලසටහන</h3>
+                        <div class="schedule-item"><div class="schedule-day">සඳු</div><div><strong>භෞතික විද්‍යාව</strong><br>⚛️ නව ලිපිය</div></div>
+                        <div class="schedule-item"><div class="schedule-day">බදා</div><div><strong>ජීව විද්‍යාව</strong><br>🧬 නව ලිපිය</div></div>
+                        <div class="schedule-item"><div class="schedule-day">සිකු</div><div><strong>රසායනය</strong><br>🧪 නව ලිපිය</div></div>
+                    </div>
+                    <div class="sidebar-widget">
+                        <h3><i class="fas fa-star"></i> ප්‍රධාන නිර්මාණකරුවෝ</h3>
+                        <div id="creatorsList"></div>
+                    </div>
+                    <div class="sidebar-widget">
+                        <h3><i class="fas fa-chart-line"></i> ජනප්‍රිය ලිපි</h3>
+                        <div id="popularArticles"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col"><h4>විද්‍යා චින්තන</h4><p>ශ්‍රී ලංකාවේ සමාජය තුළ විද්‍යාත්මක චින්තනය ගොඩනැංවීම සඳහා නිර්මාණය කළ ඩිජිටල් විද්‍යා සඟරාව.</p><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
+                <div class="footer-col"><h4>සඟරාව තුළින්</h4><p>📘 විද්‍යාත්මක සංකල්ප</p><p>🚀 විද්‍යා ප්‍රබන්ධ</p><p>🔬 නව සොයාගැනීම්</p><p>🌱 පාරිසරික විද්‍යාව</p></div>
+                <div class="footer-col"><h4>අප හා සම්බන්ධ වන්න</h4><p><i class="fas fa-envelope"></i> sggraphics2009@gmail.com</p><p><i class="fas fa-phone-alt"></i> +94 704047184</p><p><i class="fas fa-map-marker-alt"></i> අනුරාධපුර, ශ්‍රී ලංකාව</p></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; <span id="currentYear"></span> විද්‍යා චින්තන - සියලුම හිමිකම් ඇවිරිණි</p></div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Modals -->
+    <div id="articleModal" class="modal"><div class="modal-content"><span class="close-modal">&times;</span><div id="modalArticleContent"></div></div></div>
+    <div id="replyModal" class="modal"><div class="modal-content"><h3>අදහසට පිළිතුරු දෙන්න</h3><textarea id="replyText" rows="4"></textarea><button id="submitReplyBtn" class="btn-primary">පිළිතුරු දෙන්න</button><button class="close-modal">වසන්න</button></div></div>
+
+    <script src="js/firebase-config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
