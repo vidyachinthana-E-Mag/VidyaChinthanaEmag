@@ -1,11 +1,11 @@
 // Firebase Configuration - ඔබේ Firebase project එකේ values මෙතැනට දමන්න
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyCfsIyB702Z9iV0BnN4L23j6P-nT_eCVr8",
+  authDomain: "vidyachinthan-e-mag.firebaseapp.com",
+  projectId: "vidyachinthan-e-mag",
+  storageBucket: "vidyachinthan-e-mag.firebasestorage.app",
+  messagingSenderId: "120244338162",
+  appId: "1:120244338162:web:d3e589007bdfe7f288ff6b"
 };
 
 // Initialize Firebase
