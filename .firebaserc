@@ -1,0 +1,10 @@
+{
+  "projects": {
+    "default": "vidyachinthana-emag"
+  },
+  "targets": {
+    "default": {
+      "target": "default"
+    }
+  }
+}
